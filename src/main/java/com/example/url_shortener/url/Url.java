@@ -1,4 +1,4 @@
-package com.example.url_shortener.user;
+package com.example.url_shortener.url;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,20 +11,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "USER")
-public class User {
+@Table(name = "URL")
+public class Url {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, unique = true, length = 255)
-    private String email;
+    @Column(nullable = false, length = 2048)
+    private String originalUrl;
+
+    @Column(nullable = false, unique = true)
+    private String shortUrl;
 
     @Column(nullable = false)
-    private byte[] password; // VARBINARY(255) -> byte[]로 저장
+    private Integer userId;
 
-    @Column(nullable = false, length = 50)
-    private String role;
+    @Column(nullable = false)
+    private int visitCount;
+
+    @Column(nullable = false)
+    private char useYn;
+
+    @Column(nullable = false)
+    private char delYn;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

@@ -15,6 +15,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 모든 사용자 정보 조회
+     * @return List<UserResponseDto>
+     */
     @GetMapping
     public List<UserResponseDto> getAllUsers() {
         return userService.getAllUsers();
