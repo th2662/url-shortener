@@ -11,17 +11,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "USER")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
     @Column(nullable = false)
-    private byte[] password; // VARBINARY(255) -> byte[]로 저장
+    private String password;
 
     @Column(nullable = false, length = 50)
     private String role;

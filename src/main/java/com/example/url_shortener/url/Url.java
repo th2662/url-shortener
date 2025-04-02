@@ -1,5 +1,6 @@
 package com.example.url_shortener.url;
 
+import com.example.url_shortener.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,35 +11,46 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "URL")
+@Table(name = "url")
 public class Url {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(nullable = false, length = 2048)
+    @Column(nullable = false)
     private String originalUrl;
 
     @Column(nullable = false, unique = true)
     private String shortUrl;
 
-    @Column(nullable = false)
-    private Integer userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
-    private int visitCount;
+    private Integer visitCount = 0;
 
-    @Column(nullable = false)
-    private char useYn;
+    @Column(nullable = false, length = 1)
+    private String useYn = "Y";
 
-    @Column(nullable = false)
-    private char delYn;
+    @Column(nullable = false, length = 1)
+    private String delYn = "N";
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

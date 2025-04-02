@@ -23,4 +23,9 @@ public class UserController {
     public List<UserResponseDto> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/{email}")
+    public UserResponseDto getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
 }

@@ -19,11 +19,17 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(user -> {
                     UserResponseDto dto = new UserResponseDto();
-                    dto.setId(user.getId());
+                    dto.setId(Math.toIntExact(user.getId()));
                     dto.setEmail(user.getEmail());
                     dto.setRole(user.getRole());
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public UserResponseDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return new UserResponseDto(user);
     }
 }
