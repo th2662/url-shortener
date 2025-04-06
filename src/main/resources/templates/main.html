@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9f5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .main-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .main-container h1 {
+            color: #007bff;
+        }
+        .main-container a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .main-container a:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <h1>🎉 로그인 성공!</h1>
+    <p>메인 페이지에 오신 것을 환영합니다.</p>
+    <a th:href="@{/logout}">로그아웃</a>
+</div>
+</body>
+</html>
