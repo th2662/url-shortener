@@ -1,4 +1,4 @@
-package com.example.url_shortener.Login;
+package com.example.url_shortener.login;
 
 import com.example.url_shortener.user.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
