@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         System.out.println("✅ 이메일: " + user.getEmail());
         System.out.println("✅ 비밀번호(암호화됨): " + user.getPassword());
         System.out.println("✅ 권한: " + user.getRole());
+
+        // 추가적인 확인 작업위해 아래 코드 추가
+        System.out.println("✅ DB 저장 비밀번호: " + user.getPassword());
+        System.out.println("✅ 입력한 비밀번호: pass@word1");
+        System.out.println("✅ matches? " + new BCryptPasswordEncoder().matches("pass@word1", user.getPassword()));
 
 
         return new org.springframework.security.core.userdetails.User(
