@@ -8,6 +8,6 @@ public class MainController {
 
     @GetMapping("/")
     public String mainPage() {
-        return "main"; // main.html 템플릿 반환
+        return "forward:/index.html";
     }
 }
