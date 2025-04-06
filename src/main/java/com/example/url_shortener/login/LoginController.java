@@ -1,4 +1,4 @@
-package com.example.url_shortener.Login;
+package com.example.url_shortener.login;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
