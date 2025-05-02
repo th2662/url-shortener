@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,25 +27,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("입력한 이메일: " + username);
 
-        Optional<User> userOpt = userRepository.findByEmail(username);
-        if (userOpt.isEmpty()) {
-            System.out.println("DB에서 사용자를 찾지 못했어요");
-            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
-        }
-
-        User user = userOpt.get();
-        System.out.println("사용자 찾음: " + user.getEmail());
-
-        System.out.println("✅ 이메일: " + user.getEmail());
-        System.out.println("✅ 비밀번호(암호화됨): " + user.getPassword());
-        System.out.println("✅ 권한: " + user.getRole());
-
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username));
     }
 
 }
