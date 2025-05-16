@@ -1,5 +1,6 @@
-package com.example.url_shortener.user;
+package com.example.url_shortener.user.controller;
 
+import com.example.url_shortener.user.service.UserService;
 import com.example.url_shortener.user.dto.UserResponseDto;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,8 @@
-package com.example.url_shortener.user;
+package com.example.url_shortener.user.service;
 
 import com.example.url_shortener.user.dto.UserResponseDto;
+import com.example.url_shortener.user.entity.User;
+import com.example.url_shortener.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

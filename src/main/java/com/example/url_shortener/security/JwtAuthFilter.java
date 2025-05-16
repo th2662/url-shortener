@@ -1,7 +1,7 @@
 package com.example.url_shortener.security;
 
-import com.example.url_shortener.user.CustomUserDetailsService;
-import com.example.url_shortener.user.User;
+import com.example.url_shortener.user.service.CustomUserDetailsService;
+import com.example.url_shortener.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,26 +37,31 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        log.debug(">> JwtAuthFilter 실행 시작");
-        log.debug(">> DispatcherType: " + request.getDispatcherType());
-        log.debug(">> RequestURI: " + request.getRequestURI());
+        System.out.println(">> JwtAuthFilter 실행 시작");
+        System.out.println(">> DispatcherType: " + request.getDispatcherType());
+        System.out.println(">> RequestURI: " + request.getRequestURI());
 
         String token = resolveToken(request);
-        log.debug(">> 추출된 토큰: " + token);
+        System.out.println(">> 추출된 토큰: " + token);
+
 
         if (token != null && jwtProvider.validateToken(token)) {
             String username = jwtProvider.getUsernameFromToken(token);
-            log.debug(">> username: " + username);
+            System.out.println(">> username: " + username);
 
-            User user = (User) userDetailsService.loadUserByUsername(username);
+            UserPrincipal userPrincipal = (UserPrincipal) userDetailsService.loadUserByUsername(username);
+            User user = userPrincipal.getUser(); // getter 통해 실제 User 엔티티 획득
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.debug(">> 인증 설정 완료: " + authentication);
+            System.out.println(">> 인증 설정 완료: " + authentication);
         } else {
             log.debug(">> 토큰이 없거나 유효하지 않음");
+            System.out.println(">> 토큰이 없거나 유효하지 않음");
+
         }
 
         filterChain.doFilter(request, response);

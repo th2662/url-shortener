@@ -1,6 +1,6 @@
 package com.example.url_shortener.login;
 
-import com.example.url_shortener.user.User;
+import com.example.url_shortener.user.entity.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

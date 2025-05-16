@@ -1,5 +1,6 @@
-package com.example.url_shortener.user;
+package com.example.url_shortener.user.repository;
 
+import com.example.url_shortener.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

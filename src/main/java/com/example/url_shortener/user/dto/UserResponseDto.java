@@ -1,6 +1,6 @@
 package com.example.url_shortener.user.dto;
 
-import com.example.url_shortener.user.User;
+import com.example.url_shortener.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

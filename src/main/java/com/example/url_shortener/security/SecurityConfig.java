@@ -1,6 +1,6 @@
 package com.example.url_shortener.security;
 
-import com.example.url_shortener.user.CustomUserDetailsService;
+import com.example.url_shortener.user.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,6 +56,8 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http,
                                             AuthenticationManager authMgr) throws Exception {
 
+        System.out.println(">> SecurityFilterChain 설정 시작");
+
         // 1) POST "/api/login" 요청을 처리할 커스텀 로그인 필터 생성
         JwtLoginFilter loginFilter =
                 new JwtLoginFilter("/api/login", authMgr, jwtProvider);
@@ -69,7 +71,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 // URL별 접근 권한 설정
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/login", "/api/public/**").permitAll()  // 로그인 및 공개 API는 모두 허용
+                        .requestMatchers("/api/login", "/api/urls/**", "/api/public/**").permitAll()  // 로그인 및 공개 API는 모두 허용
                         .requestMatchers("/api/user/me").authenticated()
                         .anyRequest().authenticated()                                  // 그 외 요청은 인증 필요
                 )
@@ -86,6 +88,9 @@ public class SecurityConfig {
                 );
 
         // 설정 적용 후 HttpSecurity 빌드
+
+        System.out.println(">> JwtAuthFilter 추가 완료");
+
         return http.build();
     }
 
