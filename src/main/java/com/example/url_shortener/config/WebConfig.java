@@ -14,13 +14,11 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/{spring:^(?!api$).*$}")
+        // 1) 확장자(.) 없는 최상위 경로
+        registry.addViewController("/{path:[^\\.]+}")
                 .setViewName("forward:/index.html");
-
-        registry.addViewController("/**/{spring:^(?!api$).*$}")
-                .setViewName("forward:/index.html");
-
-        registry.addViewController("/{spring:^(?!api$).*$}/**{spring:?!(\\.js|\\.css|\\.png|\\.jpg|\\.jpeg|\\.svg|\\.ico|\\.json)$}")
+        // 2) 확장자(.) 없는 하위 경로 전부
+        registry.addViewController("/**/{path:[^\\.]+}")
                 .setViewName("forward:/index.html");
     }
 }

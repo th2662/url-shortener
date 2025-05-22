@@ -71,6 +71,16 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 // URL별 접근 권한 설정
                 .authorizeHttpRequests(a -> a
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/static/**",
+                                "/assets/**",
+                                "/js/**",
+                                "/css/**",
+                                "/favicon.ico",
+                                "/login"
+                        ).permitAll()
                         .requestMatchers("/api/login", "/api/urls/**", "/api/public/**").permitAll()  // 로그인 및 공개 API는 모두 허용
                         .requestMatchers("/api/user/me").authenticated()
                         .anyRequest().authenticated()                                  // 그 외 요청은 인증 필요
