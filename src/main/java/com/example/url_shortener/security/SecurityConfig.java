@@ -96,7 +96,7 @@ public class SecurityConfig {
                         jwtAuthFilter(), // Bean으로 등록한 필터 호출
                         UsernamePasswordAuthenticationFilter.class
                 )
-                // 403 에러 ) 로그인 화면으로 이동
+                // 401 에러 ) 로그인 화면으로 이동
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.sendRedirect("/login");
