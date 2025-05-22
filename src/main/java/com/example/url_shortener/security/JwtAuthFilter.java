@@ -81,7 +81,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.debug(">> JwtAuthFilter shouldNotFilter 호출됨");
         log.debug(">> DispatcherType: " + request.getDispatcherType());
         log.debug(">> URI: " + request.getRequestURI());
-        return false; // 무조건 필터 타게 만듦
+
+        String uri = request.getRequestURI();
+        return uri.equals("/") ||
+                uri.equals("/index.html") ||
+                uri.startsWith("/assets/") ||
+                uri.startsWith("/static/") ||
+                uri.startsWith("/favicon.ico") ||
+                uri.startsWith("/js/") ||
+                uri.startsWith("/css/") ||
+                uri.startsWith("/api/login") ||
+                uri.startsWith("/api/public/");
     }
 
 }

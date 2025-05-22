@@ -95,6 +95,11 @@ public class SecurityConfig {
 //                        new JwtAuthFilter(jwtProvider, userDetailsService),
                         jwtAuthFilter(), // Bean으로 등록한 필터 호출
                         UsernamePasswordAuthenticationFilter.class
+                )
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.sendRedirect("/login");
+                        })
                 );
 
         // 설정 적용 후 HttpSecurity 빌드
