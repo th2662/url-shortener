@@ -82,6 +82,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.debug(">> DispatcherType: " + request.getDispatcherType());
         log.debug(">> URI: " + request.getRequestURI());
 
+        // filter 제외할 항목
         String uri = request.getRequestURI();
         return uri.equals("/") ||
                 uri.equals("/index.html") ||
